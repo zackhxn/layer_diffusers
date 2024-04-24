@@ -702,22 +702,22 @@ def make_train_dataset(args, tokenizer, accelerator):
         global zack_step 
         zack_step += 1
         images = [image.convert("RGB") for image in examples[image_column]]
-        # 从images列表中提取第一张图像
-        image_to_save = examples[image_column][0]
-        # 为您的图像定义一个文件名
-        filename = "saved_image"+str(zack_step)+".jpg"
-        # 使用PIL的save方法将图像保存到文件中
-        image_to_save.save(filename)
+        # # 从images列表中提取第一张图像
+        # image_to_save = examples[image_column][0]
+        # # 为您的图像定义一个文件名
+        # filename = "saved_image"+str(zack_step)+".jpg"
+        # # 使用PIL的save方法将图像保存到文件中
+        # image_to_save.save(filename)
         images = [image_transforms(image) for image in images]
        
 
-        conditioning_images = [image.convert("RGB") for image in examples[conditioning_image_column]]
-        conditioning_image_to_save = examples[conditioning_image_column][0]
-        # 为您的条件图像定义一个文件名
-        conditioning_filename = "saved_conditioning_image"+str(zack_step)+".jpg"
-        # 使用PIL的save方法将图像保存到文件中
-        conditioning_image_to_save.save(conditioning_filename)
-        print("#############conditioning_image_to_save has saved")
+        # conditioning_images = [image.convert("RGB") for image in examples[conditioning_image_column]]
+        # conditioning_image_to_save = examples[conditioning_image_column][0]
+        # # 为您的条件图像定义一个文件名
+        # conditioning_filename = "saved_conditioning_image"+str(zack_step)+".jpg"
+        # # 使用PIL的save方法将图像保存到文件中
+        # conditioning_image_to_save.save(conditioning_filename)
+        # print("#############conditioning_image_to_save has saved")
 
         conditioning_images = [conditioning_image_transforms(image) for image in conditioning_images]
 
