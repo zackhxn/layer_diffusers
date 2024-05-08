@@ -627,10 +627,11 @@ def main(args):
         args.pretrained_model_name_or_path, subfolder="text_encoder", revision=args.revision, variant=args.variant
     )
     #加载vae（需要改） 在seglayer中需要两个vae，一个用来编码图像，一个用来编码mask
-    #vae包含了解码和编码？
+    #vae包含了解码和编码 这是使用sd的vae进行原图的编解码
     vae = AutoencoderKL.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="vae", revision=args.revision, variant=args.variant
     )
+    ###################重要################
     #模型结构需要重新写
     layer_vae = LayerAutoencoderKL.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="vae", revision=args.revision, variant=args.variant

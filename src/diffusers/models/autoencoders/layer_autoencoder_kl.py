@@ -29,8 +29,9 @@ from ..attention_processor import (
 )
 from ..modeling_outputs import AutoencoderKLOutput
 from ..modeling_utils import ModelMixin
+#这Decoder和Encoder都要改，首先接收的维度就不一样
 from .vae import Decoder, DecoderOutput, DiagonalGaussianDistribution, Encoder
-
+from .vae import LayerDecoder, LayerEncoder
 # 更改原始的vae，encoder用来编码mask，decoder用来解码出mask
 class LayerAutoencoderKL(ModelMixin, ConfigMixin, FromOriginalVAEMixin):
     r"""
@@ -69,7 +70,8 @@ class LayerAutoencoderKL(ModelMixin, ConfigMixin, FromOriginalVAEMixin):
     @register_to_config
     def __init__(
         self,
-        in_channels: int = 3,
+        in_image_channels: int = 3,
+        in_seg_channels: int = 1,
         out_channels: int = 3,
         down_block_types: Tuple[str] = ("DownEncoderBlock2D",),
         up_block_types: Tuple[str] = ("UpDecoderBlock2D",),
@@ -87,8 +89,9 @@ class LayerAutoencoderKL(ModelMixin, ConfigMixin, FromOriginalVAEMixin):
         super().__init__()
 
         # pass init params to Encoder
-        self.encoder = Encoder(
-            in_channels=in_channels,
+        self.encoder = LayerEncoder(
+            in_image_channels=in_image_channels,
+            in_seg_channels=in_seg_channels,
             out_channels=latent_channels,
             down_block_types=down_block_types,
             block_out_channels=block_out_channels,
